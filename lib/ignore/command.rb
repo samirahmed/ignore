@@ -41,7 +41,7 @@ module Ignore
             self.send( callback, loose.first )
           
           when (loose.length > 1 and loose.length < 5)
-            output "Please specify: \n#{loose.reduce(""){|res,name| res+=item+"\n"}}"
+            output "Please specify: \n#{loose.reduce(""){|res,name| res+=name+"\n"}}"
           
           when loose.length > 5
             output "Please be more specific"
