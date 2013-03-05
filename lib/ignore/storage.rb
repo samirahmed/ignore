@@ -41,12 +41,20 @@ module Ignore
   
     def write(filename, contents)
         if exists?( filename )
-          output("Selected ignore #{name} already exists? overwrite it? [Ny]: ")
+          outprint "Selected ignore #{name} already exists? overwrite it? [Ny]: "
           return unless input.gets.strip.downcase.split("").first == "y"
         end
         write!( filename, contents )
     end
-
+    
+    def list
+      @list ||= if Dir.glob(@gitignores).length > 1
+        Dir.glob(@gitignores).map{|file| file.split('/').last.gsub(/\.gitignore/,'') }
+      else
+        nil
+      end
+    end
+    
     private
     
     def update!
@@ -59,14 +67,18 @@ module Ignore
     end
     
     def nuke_directory! 
-      "Delete all files in #{@root} [Ny]"
+      outprint "Delete all files in #{@root} ? [Ny]: "
       if input.gets.strip.downcase.split('').first == 'y'
         FileUtils.rm_rf @root 
       end
     end
     
-    def input(s)
+    def input
       Command.input
+    end
+    
+    def outprint(s)
+      Command.outprint(s)
     end
     
     def output(s)
@@ -76,7 +88,7 @@ module Ignore
     def fetch
       FileUtils.mkdir @root if not Dir.exists? @root
       begin
-        output "Updating gitignores from github.com/github/gitignore"
+        output "Downloading gitignores from github.com/github/gitignore"
         download = HTTParty.get(GITIGNORES_ZIP).body
       rescue Exception => ex
         output "ERROR: Unable fetch gitignores from #{GITIGNORES_ZIP}"
@@ -86,17 +98,11 @@ module Ignore
       File.open(zipfile,'w'){|f| f.write download}
       unzip zipfile
       FileUtils.rm zipfile
+
+      output "#{list.length} gitignores total"
       list 
     end
    
-    def list
-      @list ||= if Dir.glob(@gitignores).length > 1
-        Dir.glob(@gitignores).map{|file| file.split('/').last.gsub(/\.gitignore/,'') }
-      else
-        nil
-      end
-    end
-    
     def unzip(source , path=@root )
       Zip::ZipFile.open(source) do |zipfile|
         zipfile.each do |entry|

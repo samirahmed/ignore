@@ -5,36 +5,31 @@ module Ignore
       def execute(*args)
         first = args.shift
         second = args.shift
-        delegate( first , second )
+        delegate(first, second)
       end   
   
-      def delegate( first, second )
+      def delegate(first, second)
         return help                   if first == 'help'
+        return list                   if first == 'list'
         return clean                  if first == 'clean'
         return update                 if first == 'update'
         return saveas(second)         if first == 'saveas' and second
         return getfile(second,:show)  if first == 'show' and second
         return getfile(first,:append) if first and second.nil?
-        return help
-      end
-
-      def show
         
+        storage #fetch and print help
+        help
       end
 
-      def input
-        $stdin
-      end
-
-      def output(s)
-        puts(s)
+      def list
+        list = storage.list
+        output( list.reduce(""){|res,line| res+= line.chomp('.gitignore')+"\n" })
       end
 
       def getfile(language, callback)
-        storage = Storage.new
         exact = storage.match(language)
         
-        return self.send(callback, storage, exact.first) unless exact.empty? 
+        return self.send(callback, exact.first) unless exact.empty? 
 
         loose = storage.match(language, false)
         
@@ -43,7 +38,7 @@ module Ignore
             output("No such gitignore #{language}")
           
           when loose.length == 1
-            self.send( callback , storage, loose.first )
+            self.send( callback, loose.first )
           
           when (loose.length > 1 and loose.length < 5)
             output "Please specify: \n#{loose.reduce(""){|res,name| res+=item+"\n"}}"
@@ -57,47 +52,63 @@ module Ignore
 
       end
 
-      def show(storage,name)
+      def show(name)
         contents = storage.load(name)
         output(contents)
       end
 
-      def append(storage, name)
+      def append(name)
         contents = storage.load(name)
-        gitignore = Gitignore.new
-        gitignore.append(contents)
+        gitignore.append(contents,name)
       end
 
       def update
-        Storage.new.update
+        storage.update
       end
 
-      def clear
-        Storage.new.clear
+      def clean
+        storage.clear
       end
 
       def saveas( name )
-        gitignore = Gitignore.new
-        storage = Storage.new
-        
         return storage.write(name,gitignore.read) if gitignore.exists?
         return output ("No .gitignore found in the #{gitignore.path}")
       end
 
       def help()
         text= %{
-          ignore : help -------------------------------------------------------
+  ignore : help -------------------------------------------------------
 
-          ignore <language>           append the specified language's gitignore to current directory     
-          ignore show <language>      print the language to STDOUT (suggested use with '| less')
-          ignore update               update from github.com/github/gitignore
-          ignore clear                clear your local ~/.ignores folder
-          ignore saveas <filename>    save working directories gitignore to local ~/.ignores folder
-          ignore help                 show help
+  ignore <language>           add specified languages gitignore to working directory
+  ignore list                 list available gitignores
+  ignore show <language>      print the language to STDOUT (use with '| less')
+  ignore update               update from github.com/github/gitignore
+  ignore clean                empty your local ~/.ignores folder
+  ignore help                 show help
 
-          see https://github.com/samirahmed/ignore for more documentation
+  see https://github.com/samirahmed/ignore for more documentation
           }
         output(text)
+      end
+
+      def storage
+        @storage ||= Storage.new
+      end
+
+      def gitignore
+        @gitignore ||= Gitignore.new
+      end
+      
+      def input
+        $stdin
+      end
+
+      def outprint(s)
+        print(s)
+      end
+      
+      def output(s)
+        puts(s)
       end
 
     end
