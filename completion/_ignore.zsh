@@ -14,6 +14,6 @@ case $state in
 	  'list: list all the languages'
 	)
 	_describe -t commands 'boom command' cmds 
-    _values 'lists' $(ls ~/.ignores | tr '[:upper:]' '[:lower:]' | grep '.gitignore' | sed 's/\.gitignore$//')
+    _values 'lists' $(mkdir -p ~/.ignores;ls ~/.ignores | tr '[:upper:]' '[:lower:]' | grep '.gitignore' | sed 's/\.gitignore$//')
     ;;
 esac
