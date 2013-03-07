@@ -1,1 +1,10 @@
-An easy way to fetch gitignores
+# Ignore
+
+the best way to fetch gitignores
+
+### the best way to fetch gitignores 
+
+- easily updated
+- add your own gitignores
+- zsh autocompletion
+
