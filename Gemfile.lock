@@ -1,0 +1,24 @@
+PATH
+  remote: .
+  specs:
+    ignore (0.0.1)
+      httparty (~> 0.10.2)
+      rubyzip (~> 0.9.9)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
+    multi_json (1.5.0)
+    multi_xml (0.5.3)
+    rake (0.9.6)
+    rubyzip (0.9.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ignore!
+  rake (~> 0.9.2)

@@ -1,7 +1,5 @@
 # Ignore
 
-the best way to fetch gitignores
-
 ### the best way to fetch gitignores 
 
 - easily updated
