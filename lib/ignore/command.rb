@@ -72,7 +72,7 @@ module Ignore
 
       def saveas( name )
         return storage.write(name,gitignore.read) if gitignore.exists?
-        return output ("No .gitignore found in the #{gitignore.path}")
+        return output("No .gitignore found in the #{gitignore.path}")
       end
 
       def help()
