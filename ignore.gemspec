@@ -7,8 +7,10 @@ Gem::Specification.new do |s|
   s.description = "Super easy manage gitignores from Github.com/github or add your own custom one"
   s.authors     = ["Samir Ahmed"]
   s.email       = 'samirahmed2013@gmail.com'
-  s.files       = ["lib/ignore.rb"]
   s.homepage    = 'http://github.com/samirahmed/ignore'
+  s.files         = `git ls-files`.split($/)
+  s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   
 # runtime dependencies
   s.add_runtime_dependency("httparty","~> 0.10.2")
