@@ -1,4 +1,4 @@
-require './helper.rb'
+require_relative 'helper'
 
 class TestStorage < Test::Unit::TestCase
 

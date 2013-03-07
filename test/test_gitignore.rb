@@ -1,6 +1,6 @@
-require './helper.rb'
+require_relative 'helper'
 
-class TestStorage < Test::Unit::TestCase
+class TestGitIgnore< Test::Unit::TestCase
 
     def setup
       @gitignore = Ignore::Gitignore.new
