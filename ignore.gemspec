@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'ignore'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2013-03-06'
   s.summary     = "Super easy way to manage gitignores from github/gitignore"
   s.description = "Super easy manage gitignores from Github.com/github or add your own custom one"
