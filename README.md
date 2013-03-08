@@ -1,6 +1,29 @@
 # Ignore
 
-## Making adding your gitignores super simple
+## Adding gitignores is now super simple
+
+A simple commandline tool to pull gitignores from  [github.com/github/gitignore](https://github.com/github/gitignore).
+
+This way all you ever have to do is.
+
+```
+$ git init
+
+$ ignore ruby
+
+$ ignore osx
+
+$ ignore vim
+```
+
+Boom you are ready to go!
+
+With a new git repo and curated gitignores for Ruby, OSX and Vim.
+
+Similar to what you see when you make a new repo through Githubs online interface
+
+See [github.com/github/gitignore](https://github.com/github/gitignore) for a full list of all the supported languages
+
 
 ### Why? 
 
@@ -25,7 +48,7 @@ $ ignore ruby
 
 This is will add github's ruby gitignore to a new or existing `.gitignore` in your current directory
 
-#### 2. Easy updates from [github.com/github/gitignore](https://github.com/github/gitignore)
+#### 2. Easy updates to sync with [github.com/github/gitignore](https://github.com/github/gitignore)
 
 ```
 ignore update
