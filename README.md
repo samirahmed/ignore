@@ -59,12 +59,12 @@ just copy the zsh autocomplete function to wherever your autocomplete functions 
 
 | Command | What it Does |
 |:-------:|--------------|
-| **list** | Shows you all the gitignores in `~/.ignores` directory|
-| **update**| Updates to sync with [github](https://github.com/github/gitignore)|
-| **show <language>** | Prints contents of gitignore, best used with `less` command |
-| **<language>** | Autogenerates or appends to current directory gitignore the specified languages .gitignore|
-| **clean** | Empties your local `~/.ignores` folder |
-| **help** | Shows you pretty much same table| 
+| `list` | Shows you all the gitignores in `~/.ignores` directory|
+| `update`| Updates to sync with [github](https://github.com/github/gitignore)|
+| `show <language>` | Prints contents of gitignore, best used with `less` command |
+| `<language>` | Autogenerates or appends to current directory gitignore the specified languages .gitignore|
+| `clean` | Empties your local `~/.ignores` folder |
+| `help` | Shows you pretty much same table| 
 
 ### Make it Better
 
